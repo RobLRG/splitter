@@ -1,14 +1,21 @@
 "use strict"
 
 
-function split4()
+function split4(pointerEvent)
 {
-    addQuarter(this)
-    addQuarter(this)
-    addQuarter(this)
-    addQuarter(this)
-
-
+    if(pointerEvent.shiftKey)
+    {
+        this.parentNode.addEventListener("click",split4)
+        this.parentNode.innerHTML=""
+    }
+    else
+    {
+        addQuarter(this)
+        addQuarter(this)
+        addQuarter(this)
+        addQuarter(this)
+    }
+    pointerEvent.stopPropagation()
 }
 
 function addQuarter(intoDiv)
@@ -21,11 +28,16 @@ function addQuarter(intoDiv)
 
     intoDiv.appendChild(q)
 
-    // let randomColor = Math.floor(Math.random()*16777215).toString(16);
-
-    // q.style.backgroundColor= "#" + randomColor
-
     q.style.backgroundColor=`rgb(${Math.random()*255},${Math.random()*255},${Math.random()*255})`
 }
+
+// function deleteQuarters(parentDiv)
+// {
+//     let p = parentDiv.childNodes
+//     for(let x of p)
+//     {
+//         x.remove()
+//     }
+// }
 
 document.body.addEventListener("click",split4)
